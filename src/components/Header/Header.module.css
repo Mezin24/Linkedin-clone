@@ -1,5 +1,6 @@
 .header {
   position: sticky;
+  background-color: white;
   height: var(--header-height);
   top: 0;
   width: 100%;

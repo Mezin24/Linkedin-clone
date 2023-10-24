@@ -1,8 +1,7 @@
 import Sidebar from 'components/Sidebar/Sidebar';
-import Header from 'components/Header/Header';
-import Feed from 'components/Feed/Feed';
+import Header from './components/Header/Header';
 
-function App() {
+export function App() {
   return (
     <div className='app'>
       <Header />
@@ -13,5 +12,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

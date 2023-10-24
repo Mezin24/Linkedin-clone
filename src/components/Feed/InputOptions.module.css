@@ -1,0 +1,15 @@
+.inputOptions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: gray;
+  cursor: pointer;
+  padding: 5px;
+  text-transform: capitalize;
+}
+
+.inputOptions:hover {
+  background-color: whitesmoke;
+  border-radius: 10px;
+}
