@@ -1,0 +1,34 @@
+.post {
+  padding: 15px;
+  background-color: white;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.name {
+  font-size: 15px;
+  line-height: 21px;
+  margin-bottom: 0;
+}
+
+.descr {
+  color: gray;
+  font-size: 12px;
+}
+
+.body {
+  margin-bottom: 12px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

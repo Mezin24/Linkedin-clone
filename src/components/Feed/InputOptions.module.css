@@ -7,6 +7,8 @@
   cursor: pointer;
   padding: 5px;
   text-transform: capitalize;
+  border: none;
+  background-color: transparent;
 }
 
 .inputOptions:hover {

@@ -8,10 +8,10 @@ interface InputOptionProps {
 const InputOptions = ({ item }: InputOptionProps) => {
   const { Icon, title, color = InputOptionColor.GRAY } = item;
   return (
-    <div className={cls.inputOptions}>
+    <button className={cls.inputOptions}>
       <Icon className={cls[color]} style={{ color }} />
       <p className={cls.title}>{title}</p>
-    </div>
+    </button>
   );
 };
 export default InputOptions;
