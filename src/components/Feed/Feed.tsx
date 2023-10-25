@@ -10,7 +10,7 @@ import {
   useEffect,
   FormEvent,
 } from 'react';
-import { IPost, PostData } from 'types/post';
+import { IPost } from 'types/post';
 import {
   addDoc,
   collection,
@@ -23,14 +23,16 @@ import { db } from '../../../firebase.config';
 
 const Feed = () => {
   const [input, setInput] = useState('');
-  const [posts, setPosts] = useState<PostData[]>([]);
+  const [posts, setPosts] = useState<IPost[]>([]);
 
   useEffect(() => {
     const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const postsData: PostData[] = [];
-      querySnapshot.forEach((doc) => {
-        postsData.push({ id: doc.id, data: doc.data() as IPost });
+      const postsData: IPost[] = querySnapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        } as IPost;
       });
       setPosts(postsData);
 
@@ -47,6 +49,7 @@ const Feed = () => {
       e.preventDefault();
       await addDoc(collection(db, 'posts'), {
         name: 'John Dow',
+        photoUrl: '',
         description: 'test post',
         message: input,
         timestamp: serverTimestamp(),
@@ -73,7 +76,7 @@ const Feed = () => {
         </div>
       </div>
       {posts.map((post) => (
-        <Post key={post.id} post={post.data} />
+        <Post key={post.id} post={post} />
       ))}
     </div>
   );
