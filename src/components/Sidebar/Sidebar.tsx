@@ -1,8 +1,11 @@
 import { Avatar } from '@mui/material';
 import cls from './Sidebra.module.css';
 import SidebarBg from 'assets/images/sidebar-bg.avif';
+import { useSelector } from 'react-redux';
+import { getUser } from 'store/user/userSelectors';
 
 const Sidebar = () => {
+  const user = useSelector(getUser);
   const recentItem = (topic: string) => (
     <div className={cls.recentItem}>
       <span>#</span>
@@ -14,9 +17,11 @@ const Sidebar = () => {
     <div className={cls.sidebar}>
       <div className={cls.sidebarTop}>
         <img src={SidebarBg} alt='picture' className={cls.image} />
-        <Avatar className={cls.avatar} />
-        <h2>Pavel Mezentcev</h2>
-        <h4>mezencev24@mail.ru</h4>
+        <Avatar className={cls.avatar} src={user?.photoURL}>
+          {user?.email[0].toUpperCase()}
+        </Avatar>
+        <h2>{user?.name}</h2>
+        <h4>{user?.email}</h4>
       </div>
 
       <div className={cls.sidebarStats}>

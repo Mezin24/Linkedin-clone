@@ -7,6 +7,7 @@ import InputOptions from './InputOptions';
 import ChatIcon from '@mui/icons-material/Chat';
 import ShareIcon from '@mui/icons-material/Share';
 import SendIcon from '@mui/icons-material/Send';
+import { LegacyRef, forwardRef } from 'react';
 
 interface PostProps {
   post: IPost;
@@ -35,12 +36,12 @@ const postButtons: InputOption[] = [
   },
 ];
 
-const Post = ({ post }: PostProps) => {
+const Post = forwardRef(({ post }: PostProps, ref: LegacyRef<HTMLElement>) => {
   const { description, message, name, photoUrl } = post;
   return (
-    <article className={cls.post}>
+    <article ref={ref} className={cls.post}>
       <div className={cls.header}>
-        <Avatar />
+        <Avatar src={photoUrl}>{name[0].toUpperCase()}</Avatar>
         <div className={cls.info}>
           <h2 className={cls.name}>{name}</h2>
           <p className={cls.descr}>{description}</p>
@@ -54,5 +55,5 @@ const Post = ({ post }: PostProps) => {
       </div>
     </article>
   );
-};
+});
 export default Post;

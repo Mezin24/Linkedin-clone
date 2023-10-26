@@ -3,8 +3,23 @@ import SearchIcon from '@mui/icons-material/Search';
 import LinkedinIcon from 'assets/icons/icons8-linkedin-48.svg';
 import { options } from './config/headerOptions';
 import HeaderOption from './HeaderOption';
+import { useDispatch, useSelector } from 'react-redux';
+import { useCallback } from 'react';
+import { userActions } from 'store/user/userSlice';
+import { auth } from '../../../firebase.config';
+import { signOut } from 'firebase/auth';
+import { toast } from 'react-toastify';
+import { getUser } from 'store/user/userSelectors';
 
 const Header = () => {
+  const user = useSelector(getUser);
+  const dispatch = useDispatch();
+  const logout = useCallback(() => {
+    dispatch(userActions.logout());
+    signOut(auth);
+    toast.info('User was logged out');
+  }, [dispatch]);
+
   return (
     <header className={cls.header}>
       <div className={cls['left-side']}>
@@ -15,9 +30,18 @@ const Header = () => {
         </div>
       </div>
       <div className={cls['right-side']}>
-        {options.map((option) => (
-          <HeaderOption option={option} key={option.title} />
-        ))}
+        {options.map((option) => {
+          if (option.avatar) {
+            return (
+              <HeaderOption
+                option={{ ...option, avatar: user?.photoURL }}
+                key={option.title}
+                onClick={logout}
+              />
+            );
+          }
+          return <HeaderOption option={option} key={option.title} />;
+        })}
       </div>
     </header>
   );

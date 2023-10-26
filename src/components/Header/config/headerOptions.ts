@@ -8,9 +8,9 @@ import { SvgIconTypeMap } from '@mui/material';
 import Avatar from 'assets/images/avatar.jpg';
 
 export interface HeaderOptionType {
+  title: string;
   Icon?: OverridableComponent<SvgIconTypeMap>;
   avatar?: string;
-  title: string;
 }
 
 export const options: HeaderOptionType[] = [

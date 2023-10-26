@@ -20,8 +20,13 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 import { db } from '../../../firebase.config';
+import { useSelector } from 'react-redux';
+import { getUser } from 'store/user/userSelectors';
+import FlipMove from 'react-flip-move';
 
 const Feed = () => {
+  const user = useSelector(getUser);
+
   const [input, setInput] = useState('');
   const [posts, setPosts] = useState<IPost[]>([]);
 
@@ -48,15 +53,15 @@ const Feed = () => {
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       await addDoc(collection(db, 'posts'), {
-        name: 'John Dow',
-        photoUrl: '',
-        description: 'test post',
+        name: user?.name,
+        photoUrl: user?.photoURL || '',
+        description: user?.email,
         message: input,
         timestamp: serverTimestamp(),
       });
       setInput('');
     },
-    [input]
+    [input, user]
   );
 
   return (
@@ -75,9 +80,11 @@ const Feed = () => {
           ))}
         </div>
       </div>
-      {posts.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
+      <FlipMove>
+        {posts.map((post) => (
+          <Post key={post.id} post={post} />
+        ))}
+      </FlipMove>
     </div>
   );
 };
