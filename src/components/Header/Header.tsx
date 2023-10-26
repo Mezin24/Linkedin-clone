@@ -34,7 +34,10 @@ const Header = () => {
           if (option.avatar) {
             return (
               <HeaderOption
-                option={{ ...option, avatar: user?.photoURL }}
+                option={{
+                  ...option,
+                  avatar: user?.photoURL || user?.email[0] || '',
+                }}
                 key={option.title}
                 onClick={logout}
               />
